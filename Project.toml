@@ -1,0 +1,15 @@
+name = "QueryableBackend"
+uuid = "0898d9ac-042b-5d31-8dcc-959fb3365f19"
+
+[deps]
+QueryOperators = "2aef5ad7-51ca-5a8f-8e88-e75cf067b44b"
+
+[compat]
+julia = "1"
+QueryOperators = "0.8"
+
+[extras]
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[targets]
+test = ["Test"]
