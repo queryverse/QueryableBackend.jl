@@ -7,6 +7,4 @@ include("queryable/queryable_filter.jl")
 
 include("source_queryable.jl")
 
-include("example_source.jl")
-
 end
