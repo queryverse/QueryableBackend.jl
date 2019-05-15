@@ -1,5 +1,7 @@
 abstract type Queryable end
 
+QueryOperators.query(x::Queryable) = x
+
 IteratorInterfaceExtensions.isiterable(x::Queryable) = true
 TableTraits.isiterabletable(x::Queryable) = true
 
