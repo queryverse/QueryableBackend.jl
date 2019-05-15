@@ -3,10 +3,14 @@ uuid = "0898d9ac-042b-5d31-8dcc-959fb3365f19"
 
 [deps]
 QueryOperators = "2aef5ad7-51ca-5a8f-8e88-e75cf067b44b"
+IteratorInterfaceExtensions = "82899510-4779-5014-852e-03e436cf321d"
+TableTraits = "3783bdb8-4a98-5b6b-af9a-565f29a5fe9c"
 
 [compat]
 julia = "1"
-QueryOperators = "0.8"
+QueryOperators = "0.8, 1"
+IteratorInterfaceExtensions = "1"
+TableTraits = "1"
 
 [extras]
 Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
