@@ -1,4 +1,4 @@
-struct QueryableJoin <: Queryable
+struct QueryableJoin <: QueryableBinary
     outer
     inner
     outerKeySelector_func
