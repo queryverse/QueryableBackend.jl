@@ -28,9 +28,16 @@ The fallback materialises the source and delegates to the in-memory
 """
 execute_scalar(q::QueryableScalar) = _execute_scalar(get_source(q.source), q)
 
-function _execute_scalar(::QueryableSource, q::QueryableScalar)
-    return q.f(_materialize(q.source), q.args...)
-end
+_execute_scalar(::QueryableSource, q::QueryableScalar) = _execute_scalar_fallback(q)
+
+"""
+    _execute_scalar_fallback(q::QueryableScalar)
+
+Materialize the source and run the in-memory implementation. A backend that
+translates only some terminal operators calls this for the rest, so that
+correctness never depends on its coverage being complete.
+"""
+_execute_scalar_fallback(q::QueryableScalar) = q.f(_materialize(q.source), q.args...)
 
 _materialize(source) = QueryOperators.query(IteratorInterfaceExtensions.getiterator(source))
 
