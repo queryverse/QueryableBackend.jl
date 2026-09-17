@@ -71,6 +71,65 @@ function describe_node(q::QueryableMapMany)
     return "MapMany: $(string(q.collectionSelector_expr)) => $(string(q.resultSelector_expr))"
 end
 
+function describe_node(q::QueryableLeftJoin)
+    return "LeftJoin: $(string(q.outerKeySelector_expr)) = $(string(q.innerKeySelector_expr)) => $(string(q.resultSelector_expr))"
+end
+
+function describe_node(q::QueryableRightJoin)
+    return "RightJoin: $(string(q.outerKeySelector_expr)) = $(string(q.innerKeySelector_expr)) => $(string(q.resultSelector_expr))"
+end
+
+function describe_node(q::QueryableFullJoin)
+    return "FullJoin: $(string(q.outerKeySelector_expr)) = $(string(q.innerKeySelector_expr)) => $(string(q.resultSelector_expr))"
+end
+
+describe_node(::QueryableConcat) = "Concat"
+
+describe_node(q::QueryableUnion) = _describe_setop("Union", q)
+
+describe_node(q::QueryableExcept) = _describe_setop("Except", q)
+
+describe_node(q::QueryableIntersect) = _describe_setop("Intersect", q)
+
+# A `nothing` key selector is the plain form, which compares whole elements.
+function _describe_setop(name, q)
+    return q.f_expr === nothing ? name : "$(name)By: $(string(q.f_expr))"
+end
+
+describe_node(q::QueryableTakeWhile) = "TakeWhile: $(string(q.f_expr))"
+
+describe_node(q::QueryableDropWhile) = "DropWhile: $(string(q.f_expr))"
+
+describe_node(q::QueryableTakeLast) = "TakeLast: $(q.n)"
+
+describe_node(q::QueryableDropLast) = "DropLast: $(q.n)"
+
+describe_node(::QueryableReverse) = "Reverse"
+
+describe_node(::QueryableShuffle) = "Shuffle"
+
+describe_node(::QueryableIndex) = "Index"
+
+describe_node(q::QueryableAppend) = "Append: $(repr(q.element))"
+
+describe_node(q::QueryablePrepend) = "Prepend: $(repr(q.element))"
+
+function describe_node(q::QueryableZip)
+    return q.resultSelector_expr === nothing ? "Zip" : "Zip: $(string(q.resultSelector_expr))"
+end
+
+describe_node(q::QueryableCountBy) = "CountBy: $(string(q.f_expr))"
+
+describe_node(q::QueryableAggregateBy) = "AggregateBy: $(string(q.f_expr))"
+
+describe_node(q::QueryableChunk) = "Chunk: $(q.n)"
+
+describe_node(q::QueryableOfType) = "OfType: $(q.T)"
+
+describe_node(q::QueryableCast) = "Cast: $(q.T)"
+
+describe_node(q::QueryableScalar) = "Scalar: $(q.op)"
+
 # Fallback for unknown/extension types
 describe_node(q::Queryable) = string(typeof(q))
 
