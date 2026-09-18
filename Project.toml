@@ -1,4 +1,4 @@
-version = "1.1.0"
+version = "1.1.1-DEV"
 name = "QueryableBackend"
 uuid = "0898d9ac-042b-5d31-8dcc-959fb3365f19"
 
